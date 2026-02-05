@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CFS_2026_DOT.sln"
+    "dotnet.defaultSolution": "CFS2026_DOT.sln"
 }
