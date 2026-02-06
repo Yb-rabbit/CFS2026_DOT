@@ -6,7 +6,7 @@ using System.Collections;
 public class TypewriterEffect : MonoBehaviour
 {
     [Header("=== 设置 ===")]
-    [Tooltip("显示文字的组件（Text 或 TextMeshProUGUI）")]
+    [Tooltip("显示文字的组件（Text）")]
     public UnityEngine.UI.Text textComponent;
 
     [Tooltip("打字速度（秒/字）")]
