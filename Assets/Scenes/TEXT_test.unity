@@ -119,6 +119,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &10443868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 10443870}
+  - component: {fileID: 10443869}
+  m_Layer: 0
+  m_Name: TextSequencer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &10443869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10443868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d03b3f558e8afc4385e6f719c0753d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriter: {fileID: 17987887}
+  textSequence:
+  - "\u7CFB\u7EDF\u542F\u52A8..."
+  - "\u6B63\u5728\u8F7D\u5165 D.O.T. \u6838\u5FC3\u6A21\u5757..."
+  - "\u68C0\u6D4B\u5230\u672A\u77E5\u6570\u636E\u6D41..."
+  - "\u8B66\u544A\uFF1A\u7CBE\u795E\u7A33\u5B9A\u5EA6\u4E0B\u964D\u81F3 50%..."
+  delayBetweenLines: 3
+  autoStart: 1
+  loopSequence: 0
+--- !u!4 &10443870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10443868}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 670.1808, y: 318, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &17987885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,3 +1729,4 @@ SceneRoots:
   - {fileID: 1203505434484208366}
   - {fileID: 626034378}
   - {fileID: 948175224}
+  - {fileID: 10443870}

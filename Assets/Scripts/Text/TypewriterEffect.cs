@@ -1,29 +1,31 @@
 using UnityEngine;
-using System.Collections;
-using System.Text;
 using UnityEngine.UI;
+using System;
+using System.Collections;
 
 public class TypewriterEffect : MonoBehaviour
 {
     [Header("=== 设置 ===")]
-    [Tooltip("显示文字的组件（支持 Text 或 TextMeshProUGUI）")]
-    public UnityEngine.UI.Text textComponent; // 拖拽你的 Text 组件到这里
-    // 如果你用的是 TextMeshPro，改成 public TMPro.TextMeshProUGUI textComponent;
+    [Tooltip("显示文字的组件（Text 或 TextMeshProUGUI）")]
+    public UnityEngine.UI.Text textComponent;
 
     [Tooltip("打字速度（秒/字）")]
     public float typingSpeed = 0.05f;
 
-    [Header("=== 测试内容 ===")]
-    [Tooltip("需要显示的完整文本")]
+    [Header("=== 调试 ===")]
+    [Tooltip("运行时手动修改此文本测试打字效果")]
     public string fullText = "系统初始化... D.O.T. 核心已加载。";
 
     // 内部变量
     private Coroutine _typingCoroutine;
     private bool _isTyping = false;
+    private string _lastTypedText = ""; // 记录上次成功打字的文本
+
+    // 打字完成事件，用于通知序列管理器播放下一条
+    public Action OnComplete;
 
     private void Start()
     {
-        // 开始时自动播放
         if (textComponent != null)
         {
             StartTyping(fullText);
@@ -37,7 +39,7 @@ public class TypewriterEffect : MonoBehaviour
     private void Update()
     {
         // 交互逻辑：点击鼠标左键
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0))
         {
             if (_isTyping)
             {
@@ -46,21 +48,28 @@ public class TypewriterEffect : MonoBehaviour
             }
             else
             {
-                // 打字已完成 -> 点击则“重新开始”或“播放下一条”
-                // 这里为了演示简单，我们重新播放当前的文本
-                StartTyping(fullText);
+                // 如果点击时已经完成，不再强制重新播放
+                // 如果你想在打完后点击强制重播，可以在这里取消注释：
+                // StartTyping(fullText);
             }
         }
     }
 
     /// <summary>
-    /// 开始打字
+    /// 开始打字（包含智能缓存逻辑）
     /// </summary>
     public void StartTyping(string text)
     {
+        // 如果当前显示的就是这段文字，直接返回，不重新打字
+        if (text == _lastTypedText && textComponent.text == text)
+        {
+            return;
+        }
+
         // 清空当前文字
         textComponent.text = "";
-        
+        _lastTypedText = text; // 更新缓存
+
         // 如果正在打字，停止之前的协程
         if (_typingCoroutine != null)
         {
@@ -80,7 +89,26 @@ public class TypewriterEffect : MonoBehaviour
         {
             StopCoroutine(_typingCoroutine);
         }
-        textComponent.text = fullText; // 直接显示全部文字
+        
+        // 直接显示全部文字
+        textComponent.text = _lastTypedText; 
+        
+        // 如果是点击跳过，也触发完成事件
+        _isTyping = false;
+        OnComplete?.Invoke();
+    }
+
+    /// <summary>
+    /// 重置状态（用于强制清空或重新开始）
+    /// </summary>
+    public void Reset()
+    {
+        if (_typingCoroutine != null)
+        {
+            StopCoroutine(_typingCoroutine);
+        }
+        textComponent.text = "";
+        _lastTypedText = "";
         _isTyping = false;
     }
 
@@ -94,11 +122,12 @@ public class TypewriterEffect : MonoBehaviour
         {
             // 每次循环加一个字
             textComponent.text += c;
-            
+
             // 等待指定时间
             yield return new WaitForSeconds(typingSpeed);
         }
 
         _isTyping = false;
+        OnComplete?.Invoke(); // 打字自然结束，通知外界
     }
 }
