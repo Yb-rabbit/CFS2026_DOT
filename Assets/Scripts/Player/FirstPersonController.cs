@@ -93,5 +93,7 @@ public class FirstPersonController : MonoBehaviour
                 Cursor.visible = false;
             }
         }
+        
     }
+    
 }

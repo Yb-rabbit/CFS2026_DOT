@@ -65,6 +65,6 @@ public class TerminalController : MonoBehaviour, IInteractable
             return "警告：终端离线";
         }
 
-        return "点击：访问终端";
+        return "点击：访问终端 [左键]";
     }
 }
