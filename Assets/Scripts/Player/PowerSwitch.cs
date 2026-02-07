@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PowerSwitch : MonoBehaviour, IInteractable // 注意：这里要实现接口
+public class PowerSwitch : MonoBehaviour, IInteractable
 {
     [Header("=== 引用 ===")]
     public Light roomLight; // 拖拽场景里的灯光
     public GameObject terminalUI; // 拖拽终端 UI 的 Canvas
-    public TextMesh statusText; // 开关上的文字（可选）
+    public Text statusText; // 开关上的文字（可选）
 
     private bool _isOn = true;
 
@@ -29,7 +30,7 @@ public class PowerSwitch : MonoBehaviour, IInteractable // 注意：这里要实
     // 实现接口方法：定义提示文字
     public string GetInteractionText()
     {
-        return _isOn ? "点击：关闭电源 [左键]" : "点击：重启系统 [左键]";
+        return _isOn ? "点击：关闭电源 [左键]" : "点击：重启电源 [左键]";
     }
 
     private void TurnOn()
