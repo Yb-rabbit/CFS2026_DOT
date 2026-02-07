@@ -1,83 +1,70 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 
 public class TerminalController : MonoBehaviour, IInteractable
 {
     [Header("=== 组件引用 ===")]
-    [Tooltip("拖拽终端的 Canvas (UI) 到这里")]
     public GameObject terminalCanvas;
-
-    [Tooltip("拖拽 TextSequencer 组件到这里")]
     public TextSequencer textSequencer;
 
-    [Header("=== 交互设置 ===")]
-    [Tooltip("是否在打开终端时隐藏鼠标指针")]
-    public bool hideCursorWhenOpen = false;
-
-    [Tooltip("是否在打开终端时锁定玩家移动")]
-    public bool lockPlayerMovementWhenOpen = true;
+    [Header("=== 外部依赖 ===")]
+    public PowerSwitch powerController; // 拖拽挂载了PowerSwitch的物体
 
     private bool _isUIActive = false;
-    private FirstPersonController _playerController; // 引用下面的玩家脚本
 
     void Start()
     {
-        // 初始隐藏 UI
         if (terminalCanvas != null) terminalCanvas.SetActive(false);
-        
-        // 获取玩家脚本引用
-        _playerController = FindObjectOfType<FirstPersonController>();
     }
 
-    // 实现接口：交互逻辑
+    void Update()
+    {
+        // 如果终端是开着的，但是突然断电了，强制关闭终端
+        if (_isUIActive && powerController != null && !powerController.IsPowerOn)
+        {
+            CloseTerminal();
+        }
+    }
+
     public void Interact()
     {
-        _isUIActive = !_isUIActive; // 切换状态
+        // 如果存在电源控制器，且电源是关的 -> 阻止操作
+        if (powerController != null && !powerController.IsPowerOn)
+        {
+            Debug.Log("没电了，无法打开终端！");
+            return; 
+        }
+
+        // 只有通电了才能切换开关状态
+        _isUIActive = !_isUIActive;
 
         if (_isUIActive)
         {
-            // --- 打开终端 ---
-            if (terminalCanvas != null) terminalCanvas.SetActive(true);
-            
-            // 播放文本序列
-            if (textSequencer != null)
-            {
-                textSequencer.StartSequence();
-            }
-
-            // 锁定状态
-            if (hideCursorWhenOpen)
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None; // 允许点击 UI
-            }
-            if (lockPlayerMovementWhenOpen && _playerController != null)
-            {
-                _playerController.enabled = false; // 禁用玩家移动
-            }
+            OpenTerminal();
         }
         else
         {
-            // --- 关闭终端 ---
-            if (terminalCanvas != null) terminalCanvas.SetActive(false);
-
-            // 恢复状态
-            if (hideCursorWhenOpen)
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked; // 锁回准星
-            }
-            if (lockPlayerMovementWhenOpen && _playerController != null)
-            {
-                _playerController.enabled = true; // 恢复玩家移动
-            }
+            CloseTerminal();
         }
     }
 
-    // 实现接口：提示文字
+    private void OpenTerminal()
+    {
+        if (terminalCanvas != null) terminalCanvas.SetActive(true);
+        if (textSequencer != null) textSequencer.StartSequence();
+    }
+
+    private void CloseTerminal()
+    {
+        if (terminalCanvas != null) terminalCanvas.SetActive(false);
+    }
+
     public string GetInteractionText()
     {
-        return _isUIActive ? "点击：关闭终端 [Esc]" : "点击：访问终端 [E]";
+        if (powerController != null && !powerController.IsPowerOn)
+        {
+            return "警告：终端离线";
+        }
+
+        return "点击：访问终端";
     }
 }
