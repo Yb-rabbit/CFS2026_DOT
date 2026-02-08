@@ -9,6 +9,9 @@ public class TerminalController : MonoBehaviour, IInteractable
     [Header("=== 外部依赖 ===")]
     public PowerSwitch powerController; // 拖拽挂载了PowerSwitch的物体
 
+    public CursorSwitch cursorSwitch; // 拖入上面的光标开关物体（或者任意挂了该脚本的物体）
+    
+
     private bool _isUIActive = false;
 
     void Start()
@@ -51,11 +54,13 @@ public class TerminalController : MonoBehaviour, IInteractable
     {
         if (terminalCanvas != null) terminalCanvas.SetActive(true);
         if (textSequencer != null) textSequencer.StartSequence();
+        if (cursorSwitch != null) cursorSwitch.IsCursorVisible = true;
     }
 
     private void CloseTerminal()
     {
         if (terminalCanvas != null) terminalCanvas.SetActive(false);
+        if (cursorSwitch != null) cursorSwitch.IsCursorVisible = false;
     }
 
     public string GetInteractionText()
