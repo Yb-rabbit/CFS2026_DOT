@@ -16,6 +16,11 @@ public class DialogueSystem : MonoBehaviour
     public DialogueData currentData;
     public int startNodeId = 1;
 
+    // --- 优化：只保留最近的5条对话 ---
+    private List<string> dialogueHistory = new List<string>(); // 存储每一轮对话的完整文本
+    private const int MaxHistoryCount = 5; // 最多保留5条历史记录
+    // -----------------------------
+
     private Coroutine typingCoroutine;
     private bool isTyping = false; // 标记是否正在打字中
 
@@ -39,52 +44,50 @@ public class DialogueSystem : MonoBehaviour
         DialogueNode node = currentData.GetNodeById(nodeId);
         if (node == null) return;
 
-        string newContent = "";
-
+        // 1. 构建当前这轮对话的完整文本（包含玩家选择和NPC回复）
+        string currentLine = "";
         if (!string.IsNullOrEmpty(playerChoice))
         {
-            newContent += "\n> " + playerChoice + "\n";
+            currentLine += "> " + playerChoice + "\n";
+        }
+        currentLine += ">> " + node.terminalText;
+
+        // 2. 添加到历史记录（最新消息在末尾）
+        dialogueHistory.Add(currentLine);
+
+        // 3. 限制历史长度（只保留最近的5条）
+        while (dialogueHistory.Count > MaxHistoryCount)
+        {
+            dialogueHistory.RemoveAt(0); // 删除最早的对话（索引0）
         }
 
-        // 显示终端的回复
-        newContent += ">> " + node.terminalText;
+        // 4. 重新构建Text内容（按顺序拼接历史记录）
+        terminalText.text = "";
+        for (int i = 0; i < dialogueHistory.Count; i++)
+        {
+            terminalText.text += dialogueHistory[i] + "\n";
+        }
+
+        // 5. 对最新的这一条进行打字机效果（仅追加当前新消息）
+        typingCoroutine = StartCoroutine(AppendText(currentLine));
         
-        typingCoroutine = StartCoroutine(AppendText(newContent));
+        // 6. 生成选项
         CreateChoices(node.choices);
     }
 
-
-        IEnumerator AppendText(string text)
+    IEnumerator AppendText(string text)
     {
         isTyping = true;
-        
-        // 每次开始打字前，先强制滚动一次到底部，防止之前的残留
-        if (scrollRect != null) scrollRect.verticalNormalizedPosition = 0f;
-
+    
         foreach (char c in text)
         {
-            terminalText.text += c;
-            
-            yield return new WaitForSeconds(0.07f); // 正常打字间隔
-            
-            // 每隔几个字，或者每打完一个字，都尝试更新
-            if (scrollRect != null)
-            {
-                // 1. 强制重建布局（告诉Unity别偷懒，马上重新算高度）
-                LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
-                
-                // 2. 设置为0（最底部）
-                scrollRect.verticalNormalizedPosition = 0f;
-            }
+            terminalText.text += c; // 仅追加当前新消息，不干扰历史部分
+            yield return new WaitForSeconds(0.05f); // 打字延迟
         }
-        
-        // 打字全部结束后，再等待一帧，最后确保滚到底部
-        yield return new WaitForEndOfFrame();
-        if (scrollRect != null)
-        {
-            scrollRect.verticalNormalizedPosition = 0f;
-        }
-
+    
+        // 打字结束后，滚动到底部（完全贴底）
+        scrollRect.verticalNormalizedPosition = 0f;
+    
         isTyping = false;
     }
 
@@ -110,13 +113,17 @@ public class DialogueSystem : MonoBehaviour
 
     public void ClearHistory()
     {
-        // 1. 停止当前正在进行的打字效果（防止清空后字又蹦出来）
+        // 1. 停止当前正在进行的打字效果
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        isTyping = false;
 
         // 2. 清空文本框的内容
         terminalText.text = "";
 
-        // 3. (可选) 如果你想清空后自动重新开始第一句对话，取消下面这行的注释：
-        // StartDialogue(startNodeId);
+        // 3. 清空历史记录列表
+        dialogueHistory.Clear();
+
+        // 4. 重置滚动条到顶部（可选，根据需求调整）
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 }
