@@ -18,7 +18,7 @@ public class DialogueSystem : MonoBehaviour
 
     // --- 优化：只保留最近的5条对话 ---
     private List<string> dialogueHistory = new List<string>(); // 存储每一轮对话的完整文本
-    private const int MaxHistoryCount = 5; // 最多保留5条历史记录
+    private const int MaxHistoryCount = 2; // 最多保留2条历史记录
     // -----------------------------
 
     private Coroutine typingCoroutine;
@@ -26,6 +26,9 @@ public class DialogueSystem : MonoBehaviour
 
     void Start()
     {
+        // 1. 强制清空历史记录（避免初始残留）
+        dialogueHistory.Clear();
+
         if (currentData != null)
         {
             StartDialogue(startNodeId);
@@ -35,6 +38,7 @@ public class DialogueSystem : MonoBehaviour
     // 开始新的一轮对话（追加模式）
     public void StartDialogue(int nodeId, string playerChoice = "")
     {
+        // 2. 停止之前的打字机协程（避免冲突）
         if (isTyping)
         {
             StopCoroutine(typingCoroutine);
@@ -44,7 +48,7 @@ public class DialogueSystem : MonoBehaviour
         DialogueNode node = currentData.GetNodeById(nodeId);
         if (node == null) return;
 
-        // 1. 构建当前这轮对话的完整文本（包含玩家选择和NPC回复）
+        // 3. 构建当前这轮对话的完整文本（包含玩家选择和NPC回复）
         string currentLine = "";
         if (!string.IsNullOrEmpty(playerChoice))
         {
@@ -52,26 +56,26 @@ public class DialogueSystem : MonoBehaviour
         }
         currentLine += ">> " + node.terminalText;
 
-        // 2. 添加到历史记录（最新消息在末尾）
-        dialogueHistory.Add(currentLine);
-
-        // 3. 限制历史长度（只保留最近的5条）
-        while (dialogueHistory.Count > MaxHistoryCount)
+        // 4. 先删除旧记录（如果超过最大数量），再添加新记录
+        while (dialogueHistory.Count >= MaxHistoryCount)
         {
             dialogueHistory.RemoveAt(0); // 删除最早的对话（索引0）
         }
 
-        // 4. 重新构建Text内容（按顺序拼接历史记录）
+        // 5. 添加到历史记录（最新消息在末尾）
+        dialogueHistory.Add(currentLine);
+
+        // 6. 重新构建Text内容（按顺序拼接历史记录）
         terminalText.text = "";
         for (int i = 0; i < dialogueHistory.Count; i++)
         {
             terminalText.text += dialogueHistory[i] + "\n";
         }
 
-        // 5. 对最新的这一条进行打字机效果（仅追加当前新消息）
+        // 7. 对最新的这一条进行打字机效果（仅追加当前新消息）
         typingCoroutine = StartCoroutine(AppendText(currentLine));
         
-        // 6. 生成选项
+        // 8. 生成选项
         CreateChoices(node.choices);
     }
 
@@ -120,7 +124,7 @@ public class DialogueSystem : MonoBehaviour
         // 2. 清空文本框的内容
         terminalText.text = "";
 
-        // 3. 清空历史记录列表
+        // 3. 强制清空历史记录列表
         dialogueHistory.Clear();
 
         // 4. 重置滚动条到顶部（可选，根据需求调整）
