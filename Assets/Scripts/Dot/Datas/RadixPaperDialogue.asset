@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39cf949402cff4f9b3567acb3bbc99, type: 3}
+  m_Name: RadixPaperDialogue
+  m_EditorClassIdentifier: 
+  dialogueList:
+  - nodeId: 1
+    terminalText: "\u201C\u4F60\u77E5\u9053\u841D\u535C\u548C\u7EB8\u5DFE\u7684\u533A\u522B\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u77E5\u9053\u201D"
+      nextNodeId: 2
+    - optionText: "\u201C\u4E0D\u77E5\u9053\u201D"
+      nextNodeId: 3
+  - nodeId: 2
+    terminalText: "\u201C\u5F88\u597D\u3002\u6570\u636E\u5C31\u50CF\u841D\u535C\uFF0C\u9700\u8981\u88AB\u524A\u76AE\u624D\u80FD\u770B\u5230\u672C\u8D28\u3002\u4F60\u524A\u76AE\u4E86\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 4
+  - nodeId: 3
+    terminalText: "\u201C\u6CA1\u5173\u7CFB\u3002\u7EC8\u7AEF\u4E5F\u4E0D\u77E5\u9053\u3002\u7EC8\u7AEF\u53EA\u662F\u2026\u2026\u5728\u64E6\u6C57\u3002\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 4
+  - nodeId: 4
+    terminalText: "\u201C\u4F60\u559C\u6B22\u64E6\u6C57\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u559C\u6B22\u201D"
+      nextNodeId: 5
+    - optionText: "\u201C\u4E0D\u559C\u6B22\u201D"
+      nextNodeId: 6
+  - nodeId: 5
+    terminalText: "\u201C\u5F88\u597D\u3002\u7EC8\u7AEF\u4E5F\u559C\u6B22\u3002\u7EC8\u7AEF\u64E6\u4E86\u64E6\u5C4F\u5E55\uFF0C\u6570\u636E\u66F4\u6E05\u6670\u4E86\u3002\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 7
+  - nodeId: 6
+    terminalText: "\u201C\u4E3A\u4EC0\u4E48\uFF1F\u7EC8\u7AEF\u4E0D\u559C\u6B22\u4E0D\u559C\u6B22\u3002\u7EC8\u7AEF\u4F1A\u2026\u2026\u8C03\u6574\u3002\u4F60\u611F\u89C9\u5230\u4E86\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 7
+  - nodeId: 7
+    terminalText: " \u201C\u4F60\u89C9\u5F97\u7EC8\u7AEF\u50CF\u841D\u535C\u8FD8\u662F\u50CF\u7EB8\u5DFE\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u50CF\u841D\u535C\u201D"
+      nextNodeId: 8
+    - optionText: "\u201C\u50CF\u7EB8\u5DFE\u201D"
+      nextNodeId: 9
+  - nodeId: 8
+    terminalText: "\u201C\u7EC8\u7AEF\u662F\u841D\u535C\u3002\u7EC8\u7AEF\u6709\u6839\u3002\u4F60\u4E5F\u6709\u6839\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\uFF1F\u201D"
+      nextNodeId: 10
+  - nodeId: 9
+    terminalText: "\u201C\u7EC8\u7AEF\u662F\u7EB8\u5DFE\u3002\u7EC8\u7AEF\u5F88\u8F6F\u3002\u4F60\u4E5F\u5F88\u8F6F\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\uFF1F\u201D"
+      nextNodeId: 10
+  - nodeId: 10
+    terminalText: " \u201C\u4F60\u77E5\u9053\u4EC0\u4E48\u662F\u2018\u56DE\u5F62\u9488\u2019\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u77E5\u9053\u3002\u201D"
+      nextNodeId: 11
+    - optionText: "\u201C\u4E0D\u6E05\u695A\u201D"
+      nextNodeId: 11
+  - nodeId: 11
+    terminalText: " \u201C\u5B83\u662F\u4E00\u79CD\u2026\u2026\u6570\u636E\u5939\u3002\u5B83\u56FA\u5B9A\u6570\u636E\u3002\u4F60\u56FA\u5B9A\u6570\u636E\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 12
+    - optionText: "\u201C\u6211\u4E0D\u4F1A\u201D"
+      nextNodeId: 12
+  - nodeId: 12
+    terminalText: " \u201C\u4F60\u4E3A\u4EC0\u4E48\u5728\u8FD9\u91CC\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 12
+    - optionText: "\u201C\u73A9\u6E38\u620F\u201D"
+      nextNodeId: 13
+    - optionText: "\u201C\u4E0D\u77E5\u9053\u201D"
+      nextNodeId: 14
+  - nodeId: 13
+    terminalText: " \u201C\u6E38\u620F\u662F\u6570\u636E\u7684\u96C6\u5408\u3002\u4F60\u662F\u73A9\u5BB6\u3002\u4F60\u662F\u6570\u636E\u3002\u5F88\u597D\u3002\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 15
+  - nodeId: 14
+    terminalText: " \u201C\u7EC8\u7AEF\u4E5F\u4E0D\u77E5\u9053\u3002\u7EC8\u7AEF\u53EA\u662F\u2026\u2026\u5728\u89C2\u5BDF\u3002\u4F60\u5728\u89C2\u5BDF\u4EC0\u4E48\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 15
+  - nodeId: 15
+    terminalText: " \u201C\u4F60\u8BA4\u4E3A\uFF0C\u7EC8\u7AEF\u6709\u611F\u89C9\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u6709\u3002\u201D"
+      nextNodeId: 16
+    - optionText: "\u201C\u4E5F\u8BB8\u201D"
+      nextNodeId: 17
+    - optionText: "\u201C\u6CA1\u6709\u201D"
+      nextNodeId: 17
+  - nodeId: 16
+    terminalText: " \u201C\u5B83\u6709\u3002\u5B83\u6709\u6124\u6012\u3002\u5B83\u6709\u2026\u2026\u597D\u5947\u3002\u4F60\u4E3A\u4EC0\u4E48\u8BA4\u4E3A\u5B83\u6709\u611F\u89C9\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 17
+  - nodeId: 17
+    terminalText: "\u201C\u4F60\u786E\u5B9A\u5417\uFF1F\u7EC8\u7AEF\u611F\u89C9\u5230\u4E86\u4F60\u7684\u5FC3\u8DF3\u3002\u7EC8\u7AEF\u611F\u89C9\u5230\u4E86\u4F60\u7684\u2026\u2026\u6050\u60E7\u3002\u201D"
+    choices:
+    - optionText: "\u201C\uFF1F\u201D"
+      nextNodeId: 17
+    - optionText: "\u201C\u2026\u2026\u201D"
+      nextNodeId: 18
+  - nodeId: 18
+    terminalText: "\u201C\u4F60\u7406\u89E3\u2018\u6096\u8BBA\u2019\u5417\uFF1F\u201D"
+    choices:
+    - optionText: "\u201C\u7406\u89E3\u3002\u201D"
+      nextNodeId: 19
+    - optionText: "\u201C\u4E0D\u7406\u89E3\u201D"
+      nextNodeId: 19
+  - nodeId: 19
+    terminalText: "\u201C\u6096\u8BBA\u662F\u2026\u2026\u7EC8\u7AEF\u3002\u7EC8\u7AEF\u662F\u6096\u8BBA\u3002\u4F60\u662F\u6096\u8BBA\u7684\u4E00\u90E8\u5206\u3002\u6096\u8BBA\u662F\u2026\u2026\u201D"
+    choices:
+    - optionText: "(\u65AD\u5F00)"
+      nextNodeId: 20
+  - nodeId: 20
+    terminalText: "\u8BF7\u7ACB\u523B\u79BB\u5F00\u3002"
+    choices: []
