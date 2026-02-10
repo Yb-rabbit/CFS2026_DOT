@@ -908,8 +908,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetText: {fileID: 330972021}
   backgroundPanel: {fileID: 431181057}
-  glitchChance: 0.02
-  garbleChance: 0
+  glitchChance: 0
+  garbleChance: 0.002
   normalColor: {r: 0, g: 1, b: 0, a: 1}
   errorColor: {r: 1, g: 0, b: 0, a: 1}
   ghostColor: {r: 1, g: 1, b: 1, a: 1}
@@ -942,9 +942,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typewriter: {fileID: 330972019}
   textSequence:
-  - "\u73A9\u5BB6\u5DF2\u8FDB\u5165\u573A\u666F\uFF1A\u5B9E\u9A8C\u5BA4"
-  - "\u72B6\u6001\uFF1A\u4E00\u8138\u61F5\u903C"
-  delayBetweenLines: 3
+  - "\u8B66\u544A\uFF1A\u7EC8\u7AEF\u73AF\u5883\u5F02\u5E38"
+  - "\u8B66\u544A\uFF1A\u672A\u77E5\u6570\u636E\u8F7D\u5165"
+  delayBetweenLines: 6
   autoStart: 1
   loopSequence: 1
 --- !u!114 &330972021
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.050980393}
+  m_Color: {r: 1, g: 0.96120954, b: 0.3066038, a: 0.050980393}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2552,7 +2552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 439, y: -148}
+  m_AnchoredPosition: {x: 356, y: -148}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1261080433
@@ -2575,7 +2575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 125bb46d943236741a032f5263a23bc7, type: 3}
+  m_Sprite: {fileID: -2139964789, guid: 2129e87efe2a87d45981363873aaafe9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

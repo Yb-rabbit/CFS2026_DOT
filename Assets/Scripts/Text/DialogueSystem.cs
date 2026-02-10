@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -9,36 +10,64 @@ public class DialogueSystem : MonoBehaviour
     public Text terminalText;        // 显示终端历史记录的 Text
     public Transform buttonContainer; // 存放按钮的容器
     public GameObject buttonPrefab;   // 按钮预制体
-    public ScrollRect scrollRect;     // 滚动视图，用于自动滚动到底部
-    public Button clearButton;       // 清除按钮（可选）
+    public ScrollRect scrollRect;     // 滚动视图
+    public Button clearButton;       // 清除按钮
 
+    [Header("进度条设置")]
+    public Scrollbar progressBar;    // 外置的进度条
+    public GameObject endButton;     // 对话结束时显示的指定按钮
+    
     [Header("对话数据")]
     public DialogueData currentData;
     public int startNodeId = 1;
 
-    // --- 优化：只保留最近的5条对话 ---
-    private List<string> dialogueHistory = new List<string>(); // 存储每一轮对话的完整文本
-    private const int MaxHistoryCount = 2; // 最多保留2条历史记录
+    [Header("显示设置")]
+    [Tooltip("开启后，新消息会先瞬间显示，然后再打字机输出一遍（复读机效果）")]
+    public bool isRepeaterMode = true; // 默认开启复读模式
+
+    // --- 复读机优化：历史记录管理 ---
+    private List<string> dialogueHistory = new List<string>();
+    private const int MaxHistoryCount = 2; // 限制最大文本量为2
+    private int currentMaxNodeId = 0;      // 缓存最大节点ID用于计算进度
+    private int currentActiveNodeId = 1;  // 【新增】记录当前正在显示的节点ID，用于重绘
     // -----------------------------
 
     private Coroutine typingCoroutine;
-    private bool isTyping = false; // 标记是否正在打字中
+    private bool isTyping = false;
+
+    // 定义一个事件，方便在Inspector中绑定
+    public UnityEvent onDialogueCompleted;
 
     void Start()
     {
-        // 1. 强制清空历史记录（避免初始残留）
-        dialogueHistory.Clear();
-
         if (currentData != null)
         {
+            // 初始化计算最大ID
+            CalculateMaxNodeId();
             StartDialogue(startNodeId);
         }
     }
 
-    // 开始新的一轮对话（追加模式）
+    // 计算当前对话数据中最大的节点ID
+    void CalculateMaxNodeId()
+    {
+        currentMaxNodeId = 1; // 默认至少为1
+        
+        if (currentData != null && currentData.dialogueList != null) 
+        {
+             foreach (var node in currentData.dialogueList)
+             {
+                 if (node.nodeId > currentMaxNodeId) currentMaxNodeId = node.nodeId;
+             }
+        }
+        else
+        {
+            currentMaxNodeId = 1; 
+        }
+    }
+
     public void StartDialogue(int nodeId, string playerChoice = "")
     {
-        // 2. 停止之前的打字机协程（避免冲突）
         if (isTyping)
         {
             StopCoroutine(typingCoroutine);
@@ -48,7 +77,25 @@ public class DialogueSystem : MonoBehaviour
         DialogueNode node = currentData.GetNodeById(nodeId);
         if (node == null) return;
 
-        // 3. 构建当前这轮对话的完整文本（包含玩家选择和NPC回复）
+        // 【新增】记录当前节点ID，以便 ClearHistory 能够重新加载它
+        currentActiveNodeId = nodeId;
+
+        // --- 1. 更新进度条 ---
+        UpdateProgressBar(nodeId);
+
+        // --- 2. 检查是否到达末端 ---
+        bool isEnd = (node.choices == null || node.choices.Count == 0);
+        if (isEnd)
+        {
+            if (onDialogueCompleted != null) onDialogueCompleted.Invoke();
+            if (endButton != null) endButton.SetActive(true);
+        }
+        else
+        {
+            if (endButton != null) endButton.SetActive(false);
+        }
+
+        // --- 3. 文本显示逻辑 (复读机版 + 限制2条) ---
         string currentLine = "";
         if (!string.IsNullOrEmpty(playerChoice))
         {
@@ -56,27 +103,49 @@ public class DialogueSystem : MonoBehaviour
         }
         currentLine += ">> " + node.terminalText;
 
-        // 4. 先删除旧记录（如果超过最大数量），再添加新记录
-        while (dialogueHistory.Count >= MaxHistoryCount)
-        {
-            dialogueHistory.RemoveAt(0); // 删除最早的对话（索引0）
-        }
-
-        // 5. 添加到历史记录（最新消息在末尾）
         dialogueHistory.Add(currentLine);
 
-        // 6. 重新构建Text内容（按顺序拼接历史记录）
-        terminalText.text = "";
-        for (int i = 0; i < dialogueHistory.Count; i++)
+        // 限制历史长度为2
+        while (dialogueHistory.Count > MaxHistoryCount)
         {
-            terminalText.text += dialogueHistory[i] + "\n";
+            dialogueHistory.RemoveAt(0);
         }
 
-        // 7. 对最新的这一条进行打字机效果（仅追加当前新消息）
-        typingCoroutine = StartCoroutine(AppendText(currentLine));
+        terminalText.text = "";
+
+        if (isRepeaterMode)
+        {
+            // 复读机模式：瞬间显示所有历史（包括最新的）
+            for (int i = 0; i < dialogueHistory.Count; i++)
+            {
+                terminalText.text += dialogueHistory[i] + "\n";
+            }
+            // 打字机再打一遍最新的
+            typingCoroutine = StartCoroutine(AppendText(currentLine));
+        }
+        else
+        {
+            // 正常模式：只显示旧历史，最新的打字机输出
+            for (int i = 0; i < dialogueHistory.Count - 1; i++)
+            {
+                terminalText.text += dialogueHistory[i] + "\n";
+            }
+            typingCoroutine = StartCoroutine(AppendText(currentLine));
+        }
         
-        // 8. 生成选项
+        // --- 4. 生成选项 (如果还有选项) ---
         CreateChoices(node.choices);
+    }
+
+    // 更新进度条方法
+    void UpdateProgressBar(int currentNodeId)
+    {
+        if (progressBar != null && currentMaxNodeId > 0)
+        {
+            float progress = (float)currentNodeId / (float)currentMaxNodeId;
+            progress = Mathf.Clamp01(progress);
+            progressBar.size = progress; 
+        }
     }
 
     IEnumerator AppendText(string text)
@@ -85,22 +154,42 @@ public class DialogueSystem : MonoBehaviour
     
         foreach (char c in text)
         {
-            terminalText.text += c; // 仅追加当前新消息，不干扰历史部分
-            yield return new WaitForSeconds(0.05f); // 打字延迟
+            terminalText.text += c;
+            yield return new WaitForSeconds(0.05f); 
         }
     
-        // 打字结束后，滚动到底部（完全贴底）
-        scrollRect.verticalNormalizedPosition = 0f;
+        // 打字结束后，更新高度并滚动
+        UpdateContentHeight();
     
         isTyping = false;
     }
 
+    void UpdateContentHeight()
+    {
+        // 获取 Text 组件实际宽度，防止计算错误
+        Vector2 textSize = terminalText.rectTransform.rect.size;
+        TextGenerationSettings settings = terminalText.GetGenerationSettings(textSize); 
+        settings.font = terminalText.font; 
+    
+        terminalText.cachedTextGenerator.Populate(terminalText.text, settings);
+        float textHeight = terminalText.cachedTextGenerator.rectExtents.y * 2;
+    
+        RectTransform contentRect = scrollRect.content;
+        contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, textHeight);
+    
+        scrollRect.verticalNormalizedPosition = 0f;
+    }
+
     void CreateChoices(List<ChoiceOption> choices)
     {
+        // 清空旧按钮
         foreach (Transform child in buttonContainer)
         {
             Destroy(child.gameObject);
         }
+
+        // 如果没有选项，就不生成
+        if (choices == null) return;
 
         foreach (var choice in choices)
         {
@@ -114,20 +203,30 @@ public class DialogueSystem : MonoBehaviour
             btn.onClick.AddListener(() => StartDialogue(targetId, choice.optionText));
         }
     }
-
     public void ClearHistory()
     {
-        // 1. 停止当前正在进行的打字效果
+        // 1. 停止当前打字
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
         isTyping = false;
 
-        // 2. 清空文本框的内容
+        // 2. 清空屏幕文字和历史记录
         terminalText.text = "";
-
-        // 3. 强制清空历史记录列表
         dialogueHistory.Clear();
 
-        // 4. 重置滚动条到顶部（可选，根据需求调整）
-        scrollRect.verticalNormalizedPosition = 1f;
+        // 3. 重置布局高度（防止残留）
+        if (scrollRect != null)
+        {
+            RectTransform contentRect = scrollRect.content;
+            contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, 0); 
+        }
+
+        // 4. 重新显示当前节点的对话
+        // 传入空字符串作为 playerChoice，因为这不是玩家选择触发的，而是刷新触发的
+        StartDialogue(currentActiveNodeId, ""); 
+    }
+    
+    public void ToggleRepeaterMode(bool isOn)
+    {
+        isRepeaterMode = isOn;
     }
 }
