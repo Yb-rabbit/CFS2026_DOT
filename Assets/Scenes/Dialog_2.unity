@@ -537,7 +537,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Lab_1
+          m_StringArgument: Lab_2
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1178871729}
@@ -613,8 +613,8 @@ RectTransform:
   m_Children:
   - {fileID: 161158402}
   - {fileID: 944687969}
-  - {fileID: 767340983}
   - {fileID: 1907839288}
+  - {fileID: 767340983}
   m_Father: {fileID: 1805094166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
