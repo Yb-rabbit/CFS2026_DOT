@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Lab_1.unity
     guid: 285c9ac5ea6aeb7408948b98f689f86f
   - enabled: 1
+    path: Assets/Scenes/Dialog_2.unity
+    guid: e9590bbad93b1ab44ac775fdb7d60ee7
+  - enabled: 1
     path: Assets/Scenes/PlayGround.unity
     guid: ccea65334a21cb944b4b83aaf6a1915c
   m_configObjects: {}
