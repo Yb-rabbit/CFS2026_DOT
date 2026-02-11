@@ -17,7 +17,8 @@ MonoBehaviour:
   timestamp: 2026-02-18 18:31:04
   operatorID: Abc_Player
   logType: USER_DISCOVERY
-  eventDescription: "\"\u65B0\u7528\u6237Abc_player\u767B\u5F55Terminal-03C\u3002\u9996\u6B21\u67E5\u8BE2:'\u4E0A\u4E00\u4F7F\u7528\u8005\u4FE1\u606F\uFF1F'\""
+  eventDescription: "\u65B0\u7528\u6237Abc_player\u767B\u5F55Terminal-03C\u3002\u9996\u6B21\u67E5\u8BE2:\u4E0A\u4E00\u4F7F\u7528\u8005\u4FE1\u606F\u3002\u72B6\u6001:
+    [\u6D3B\u8DC3]\u3002"
   dataSummary: "\u8FDD\u53CD\u6807\u51C6\u65B0\u7528\u6237\u67E5\u8BE2\u6A21\u5F0F\u3002\u8D26\u6237\u5DF2\u9501\u5B9A\u3002"
   isCriticalLog: 0
   showInPanel: 1

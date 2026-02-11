@@ -5600,7 +5600,7 @@ MonoBehaviour:
   - "\u7EC8\u7AEF\u5DF2\u6FC0\u6D3B\uFF0C\u8BF7\u5237\u65B0"
   delayBetweenLines: 5
   autoStart: 0
-  loopSequence: 1
+  loopSequence: 0
 --- !u!95 &7051475777626352068
 Animator:
   serializedVersion: 7
