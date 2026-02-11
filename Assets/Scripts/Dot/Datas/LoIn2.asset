@@ -72,6 +72,13 @@ MonoBehaviour:
     - optionText: "(\u8FD4\u56DE)"
       nextNodeId: 4
   - nodeId: 8
+    terminalText: "[\u8B66\u544A] \u6765\u81EA\u65E7\u7248\u672C\u7684\u6570\u636E
+      /RUN DOT_RECOVERY\n\u4E0A\u4F20\u5931\u8D25\uFF0C\u5DF2\u6062\u590D\u8BB0\u5F55:
+      maintenance_warning.log"
+    choices:
+    - optionText: "\u201C\u5173\u4E8E\u65E7\u7248\u201D"
+      nextNodeId: 9
+  - nodeId: 9
     terminalText: "\u201C\u65E0\u7EA7\u522B\u6743\u9650  \u5F53\u524D\u72B6\u6001:
       [\u79BB\u7EBF] \uFF0C\u8BF7\u79BB\u5F00\u3002\u201D"
     choices: []
