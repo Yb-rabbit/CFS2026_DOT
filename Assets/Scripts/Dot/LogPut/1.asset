@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e638a1ba3bdaff544baa33c9f72f9ff2, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  logID: LOG_001
+  displayOrder: 1
+  timestamp: 2023-10-12 09:15:03
+  operatorID: Line-3
+  logType: USER_ACTION
+  eventDescription: "\"\u5728\u5185\u90E8\u7533\u8BC9\u5E73\u53F0\u521B\u5EFA\u8349\u7A3F\u3002\u8F93\u5165\u7126\u70B9\u5728'\u4E8B\u5B9E\u9648\u8FF0'\u680F\u505C\u755914\u520632\u79D2\uFF0C\u5E73\u5747\u8F93\u5165\u901F\u5EA6\uFF1A2.3\u5B57\u7B26/\u5206\u949F\u3002\u6700\u7EC8\u5185\u5BB9\u88AB\u6E05\u7A7A\u3002\u8BE5\u4F1A\u8BDD\u65E0\u63D0\u4EA4\u8BB0\u5F55\u3002\""
+  dataSummary: "\u8FC7\u53BB183\u5929\u5185\u975E\u5DE5\u4F5C\u65F6\u6BB5\u8BBF\u95EE\u5B89\u5168\u624B\u518C47\u6B21\u2026\u2026"
+  isCriticalLog: 0
+  showInPanel: 1

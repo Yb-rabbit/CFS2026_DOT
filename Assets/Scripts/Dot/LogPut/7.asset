@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e638a1ba3bdaff544baa33c9f72f9ff2, type: 3}
+  m_Name: 7
+  m_EditorClassIdentifier: 
+  logID: LOG_0012
+  displayOrder: 7
+  timestamp: 2023-10-18 09:05:21
+  operatorID: TERMINAL-03C
+  logType: LOCAL_ACTIVITY
+  eventDescription: "\u68C0\u6D4B\u5230Terminal-03C\u6700\u540E\u4E00\u6B21\u6D3B\u52A8\uFF1A\u521B\u5EFA\u5E76\u52A0\u5BC6\u672C\u5730\u6587\u672C\u6587\u4EF6README.txt\u3002"
+  dataSummary: "\u5F02\u5E38\u672C\u5730\u6587\u4EF6\u521B\u5EFA\uFF0C\u672A\u9075\u5FAA\u4E91\u5B58\u50A8\u534F\u8BAE\u3002"
+  isCriticalLog: 1
+  showInPanel: 1

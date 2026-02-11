@@ -3242,7 +3242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 8608ec81ee27a15488d33f9dad239e91, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0.54
+  m_AmplitudeGain: 0.14
   m_FrequencyGain: 0.8
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &1737701854
@@ -4503,6 +4503,7 @@ GameObject:
   - component: {fileID: 6408248689764635838}
   - component: {fileID: 7051475777626352067}
   - component: {fileID: 7051475777626352066}
+  - component: {fileID: 7051475777626352068}
   m_Layer: 5
   m_Name: Text_History
   m_TagString: Untagged
@@ -5597,9 +5598,31 @@ MonoBehaviour:
   typewriter: {fileID: 7051475777626352066}
   textSequence:
   - "\u7EC8\u7AEF\u5DF2\u6FC0\u6D3B\uFF0C\u8BF7\u5237\u65B0"
-  delayBetweenLines: 3
-  autoStart: 1
+  delayBetweenLines: 5
+  autoStart: 0
   loopSequence: 1
+--- !u!95 &7051475777626352068
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826741101290801588}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9891682df4a845e4c98e3ce1eca23231, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!222 &7141105943811309771
 CanvasRenderer:
   m_ObjectHideFlags: 0
