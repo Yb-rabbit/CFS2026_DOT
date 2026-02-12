@@ -2561,7 +2561,7 @@ MonoBehaviour:
   targetText: {fileID: 334435649}
   backgroundPanel: {fileID: 816061712}
   glitchChance: 0.002
-  garbleChance: 0.005
+  garbleChance: 0
   normalColor: {r: 0, g: 1, b: 0, a: 1}
   errorColor: {r: 1, g: 0, b: 0, a: 1}
   ghostColor: {r: 1, g: 1, b: 1, a: 1}
