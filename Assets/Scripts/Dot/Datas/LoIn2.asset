@@ -72,7 +72,7 @@ MonoBehaviour:
     - optionText: "\u201C\u8BF4\u4EC0\u4E48\u5462\u201D"
       nextNodeId: 8
     - optionText: "\u201C\u73A9\u5BB6\u76F8\u5173\u201D"
-      nextNodeId: 5
+      nextNodeId: 6
     - optionText: "(\u8FD4\u56DE)"
       nextNodeId: 4
   - nodeId: 8
