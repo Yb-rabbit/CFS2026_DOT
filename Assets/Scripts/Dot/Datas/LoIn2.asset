@@ -50,17 +50,19 @@ MonoBehaviour:
     - optionText: "\"\u5173\u4E8E\u73A9\u5BB6\""
       nextNodeId: 6
   - nodeId: 5
-    terminalText: "\u201C\u6211\u627E\u5230\u4E00\u4E9B\u8FC7\u671F\u7684\u65E5\u5FD7\uFF0C\u4F46\u662F\u4E71\u7801\u4E86\u3002\u4F60\u60F3\u8981\u67E5\u770B\u5417\uFF1F\u201D"
+    terminalText: "\u201C\u6211\u627E\u5230\u4E00\u4E9B\u8FC7\u671F\u7684\u65E5\u5FD7\uFF0C\u4F46\u662F\u4E71\u7801\u4E86\u3002\u4F60\u60F3\u8981\u67E5\u770B\u5417\uFF1F\u201D\n[Log]\u68C0\u6D4B\u5230\u64CD\u4F5C\u5458\u67E5\u8BE2\u884C\u4E3A"
     choices:
     - optionText: "\u201C\u5E76\u4E0D\u201D"
       nextNodeId: 4
     - optionText: "\"\u4F60\u6709\u529E\u6CD5\u7684\""
       nextNodeId: 7
   - nodeId: 6
-    terminalText: "\u201C\u64CD\u4F5C\u8005:Abc_user  \u72B6\u6001:\u5B9E\u4E60\u671F\u201D"
+    terminalText: "\u201C\u64CD\u4F5C\u8005:Abc_user  \u72B6\u6001:\u5B9E\u4E60\u671F\u201D\n[Log]\u67E5\u8BE2\u8BB0\u5F55\u5DF2\u66F4\u65B0\uFF0C\u67E5\u8BE2\u5230\u5386\u53F2\u64CD\u4F5C\u5458\u8BB0\u5F55\uFF0C\u7B49\u5F85\u6743\u9650\u68C0\u9A8C\u4E2D\u3002"
     choices:
     - optionText: "\u201C\u67E5\u770B\u66F4\u591A\u201D"
       nextNodeId: 8
+    - optionText: "\u201C\u7CFB\u7EDF\u76F8\u5173\u201D"
+      nextNodeId: 5
     - optionText: "(\u8FD4\u56DE)"
       nextNodeId: 4
   - nodeId: 7
@@ -69,6 +71,8 @@ MonoBehaviour:
     choices:
     - optionText: "\u201C\u8BF4\u4EC0\u4E48\u5462\u201D"
       nextNodeId: 8
+    - optionText: "\u201C\u73A9\u5BB6\u76F8\u5173\u201D"
+      nextNodeId: 5
     - optionText: "(\u8FD4\u56DE)"
       nextNodeId: 4
   - nodeId: 8
@@ -78,6 +82,8 @@ MonoBehaviour:
     choices:
     - optionText: "\u201C\u5173\u4E8E\u65E7\u7248\u201D"
       nextNodeId: 9
+    - optionText: "(\u8FD4\u56DE)"
+      nextNodeId: 4
   - nodeId: 9
     terminalText: "\u201C\u65E0\u7EA7\u522B\u6743\u9650  \u5F53\u524D\u72B6\u6001:
       [\u79BB\u7EBF] \uFF0C\u8BF7\u79BB\u5F00\u3002\u201D"

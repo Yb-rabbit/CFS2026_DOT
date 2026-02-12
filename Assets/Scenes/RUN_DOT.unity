@@ -12901,7 +12901,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 4
+    width: 12
     height: 1
 --- !u!222 &2036406771
 CanvasRenderer:
@@ -13690,7 +13690,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 879b6ebc0b392f0468387b5eae463d8a, type: 3}
   m_Resource: {fileID: 8300000, guid: 879b6ebc0b392f0468387b5eae463d8a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.617
+  m_Volume: 0.59
   m_Pitch: 1
   Loop: 1
   Mute: 0
