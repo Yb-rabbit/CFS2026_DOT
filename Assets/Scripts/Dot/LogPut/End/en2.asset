@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e638a1ba3bdaff544baa33c9f72f9ff2, type: 3}
+  m_Name: en2
+  m_EditorClassIdentifier: 
+  logID: LOG_4078
+  displayOrder: 3
+  timestamp: 2026-02-12 17:27:33(history)
+  operatorID: KeSi@Bmail
+  logType: TIP_Panel
+  eventDescription: "\u5DF2\u5F3A\u5236\u590D\u539F\u539F\u59CB\u65E5\u5FD7\u4E0E\u4E8B\u6545\u6A21\u62DF"
+  dataSummary: "\u5408\u7406\u63A7\u5236\u79FB\u52A8\uFF0C\u66F4\u597D\u9605\u8BFB\u4F53\u9A8C"
+  isCriticalLog: 1
+  showInPanel: 1
